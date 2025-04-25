@@ -46,7 +46,13 @@
 
 | Nome do Campo                          | Tipo de Dado | Descrição                                                                                 | Tipo de Coluna | Exemplo                  | Valores Possíveis                                         |
 |---------------------------------------|--------------|-------------------------------------------------------------------------------------------|----------------|---------------------------|-----------------------------------------------------------|
-| ``                      |       |                                                         |        | ``                   | ``                                                       |
+| `Company`                      |   Texto    | Nome da empresa                                                        | Original        | `IBM`                   | -                                                     |
+| `Date`                      |   Data    |  Data em que a ação foi negociada na NASDAQ                                                       | Original       | `24/04/2025`                   | -                                                       |
+| `Close/Last`                      | Número Decimal | Fornece o preço de fechamento da ação na NASDAQ no final do dia de negociação. O preço de fechamento é o último preço pelo qual a ação foi negociada naquele dia | Original | `229,33` | - |
+| `Volume`                      |    Número Inteiro   | Indica o número total de ações negociadas durante o dia. Isso pode incluir várias transações feitas por um ou mais investidores | Original | `7.948.259` | - |
+| `Open`                      |    Número Decimal   | Indica o preço de abertura da ação na NASDAQ no início do dia de negociação. O preço de abertura é o primeiro preço pelo qual a ação foi negociada naquele dia | Original | `231,175` | - |
+| `High`                      |    Número Decimal   | Indica o preço máximo que a ação foi negociada naquele dia. O preço máximo é o preço mais alto pelo qual a ação foi negociada durante o dia | Original | `232,78` | - |
+| `Low`                      |   Número Decimal    |Indica o preço mínimo que a ação foi negociada naquele dia. O preço mínimo é o preço mais baixo pelo qual a ação foi negociada durante o dia | Original | `243,66` | - |
 
 
 
