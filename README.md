@@ -9,7 +9,7 @@
 
 **Data de Início:** 25/04/2025
 
-**Data de Conclusão:** -
+**Data de Conclusão:** 29/04/2025
 
 **Versão Atual:** 1.0  
 
@@ -20,7 +20,7 @@
 ## 2. Requisitos do Projeto
 
 - Obter o **total de volume negociado de ações ao longo do tempo** para as 5 empresas analisadas.
-- Calcular o **valor médio de abertura (_Open_), mais alto (_High_), mais baixo (_Low_) e de fechamento (_Close_) das ações de todas as empresas, para todos os meses do período analisado (5 anos)**.
+- Calcular o **valor médio de abertura (_Open_), mais alto (_High_), mais baixo (_Low_), de fechamento (_Close_) e do Volume das ações de todas as empresas, para todos os meses do período analisado (5 anos)**.
 - Calcular a **variação da média do valor de fechamento (_Close_)** das ações de todas as empresas ao longo do tempo, mês a mês.
 - Explicar as **principais características e tendências nos dados**.
 - Deve ser possível realizar a análise para **uma única empresa ou uma combinação de empresas**.
@@ -37,10 +37,16 @@
 
 **Origem dos Dados:** site da [NASDAQ](https://www.nasdaq.com/market-activity/stocks)
 
-- **Tabela Utilizada: **
+- **Tabela Utilizada: stock_data**
 
 - **Campos Considerados:**  
-
+  - _Company_
+  - _Date_
+  - _Close/Last_
+  - _Volume_
+  - _Open_
+  - _High_
+  - _Low_
 
 ### Dicionário de Dados
 
@@ -62,49 +68,122 @@
 ## 5. Tratamento de Dados
 
 **Transformações Realizadas no Power Query:**  
-- 
+- **Formatação dos nomes das empresas**: Os valores na coluna _Company_ foram padronizados para que apenas a primeira letra de cada nome fique em maiúscula. A empresa IBM, originalmente em letras minúsculas, foi convertida para letras maiúsculas.
+- **Correção de formatação numérica**: As colunas com valores monetários estavam em formato de texto devido à presença do caractere "$" e ao uso do ponto como separador decimal, conforme o padrão dos EUA. O caractere "$" foi removido e o ponto decimal substituído por vírgula, adequando os dados ao padrão numérico brasileiro.
+- **Ajuste no formato de data**: As datas da coluna _Date_ estavam no formato americano (MM/DD/AAAA), com o mês e o dia invertidos em relação ao padrão brasileiro. A coluna foi convertida para o formato nacional (DD/MM/AAAA).
 
 ---
 
 ## 6. Validação e Verificação dos Dados
 
-**Métodos de Validação:** 
-**Erros Encontrados e Correções:** 
+**Métodos de Validação:** Verificação Manual.
+**Erros Encontrados e Correções:** Nenhum erro encontrado.
 
 ---
 
 ## 7. Modelagem de Dados
 
-**Relacionamentos Criados:** 
+**Relacionamentos Criados:** Tabela única.
 
 ---
 
 ## 8. Funções DAX Utilizadas
 
 ### Medidas Criadas (DAX):
-  
+- **MediaClose**
+  ``` DAX
+  MediaClose = AVERAGE(stock_data[Close/Last]) 
+  ```
+
+- **MediaClose MoM%**
+  ``` DAX
+  MediaClose MoM% = 
+  IF(
+  	ISFILTERED('stock_data'[Date]),
+  	ERROR("Medidas rápidas de inteligência de tempo somente podem ser agrupadas ou filtradas pela hierarquia de data fornecida pelo Power BI ou pela coluna de data primária."),
+  	VAR __PREV_MONTH = CALCULATE([MediaClose], DATEADD('stock_data'[Date].[Date], -1, MONTH))
+  	RETURN
+  		DIVIDE([MediaClose] - __PREV_MONTH, __PREV_MONTH)
+  )
+  ```
+
+- **MediaHigh**
+  ``` DAX
+  MediaHigh = AVERAGE(stock_data[High]) 
+  ```
+
+- **MediaLow**
+  ``` DAX
+  MediaLow = AVERAGE(stock_data[Low]) 
+  ```
+
+- **MediaOpen**
+  ``` DAX
+  MediaOpen = AVERAGE(stock_data[Open])
+  ```
+
+- **MediaVolume**
+  ``` DAX
+  MediaVolume = AVERAGE(stock_data[Volume])
+  ```
+
+- **TotalVolume**
+  ``` DAX
+  TotalVolume = SUM(stock_data[Volume])
+  ```
+
 ---
 
 ## 9. Dashboards e Relatórios
 
+![image](https://github.com/user-attachments/assets/9fcabbcf-70f0-4031-8268-932e2095ba23)
 
+### Visão Geral do Volume Negociado
+- Forte **queda de 59,28%** no volume total entre **abril/2020 e abril/2025**.
+- Picos anormais:
+  - **2021:** Volume atinge **0,81 Bi** — possivelmente por IPOs ou eventos macroeconômicos.
+  - Redução consistente até **2025**, com volumes estabilizando próximos de **0,15 Bi**.
+
+### 📊 Variação da Média de Fechamento MoM
+
+- **Tesla**: Maior volatilidade. Destaque para **queda acentuada em maio (~-70%)**, seguida de forte recuperação.
+- **Microsoft, Oracle, Walmart**: Curvas mais estáveis. Menores riscos.
+- **IBM**: Comportamento intermediário entre defensivo e volátil.
+
+### 📅 Tabela de Valores Médios (2020–2025)
+
+- Houve uma tendência clara de crescimento no valor médio de abertura e fechamento ao longo dos anos, indicando uma valorização progressiva dos ativos.
+- O pico no volume negociado ocorreu em 2020, sugerindo um evento atípico (ex.: pandemia ou forte movimentação de mercado); após isso, o volume caiu consideravelmente e não retornou aos mesmos níveis.
+- Mesmo com menor volume, os preços continuaram subindo, o que pode indicar baixa oferta ou alta demanda institucional mais concentrada.
+- A média geral (linha "Total") está consistentemente puxada para cima pelos dois últimos anos (2024 e 2025), o que reforça a importância de avaliar as tendências recentes com atenção.
+
+## 🤖 Narrativa Inteligente (Resumo Automático)
+
+Análise geral para todos os anos e empresas:
+- **Queda estrutural** desde 2020.
+- **Ponto de inflexão identificado** em dez/2022.
+- **Tesla em maio** representa **8,84%** da variação MoM — comportamento que pode impactar o índice geral.
+
+Ao interagir com o dashboard a análise feita pela narrativa inteligente atualizará em conjunto.
 
 ---
 
 ## 10. Acesso e Compartilhamento
 
-**Modo de Compartilhamento:** 
+**Modo de Compartilhamento:** Publicado no Power BI Service  
+[🔗 Acessar Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNGUwYTA0MDctMmE4NS00Y2MxLTkzODktYjVjMzZhOTViOTRjIiwidCI6ImJhZTkwYjYxLTg4OTItNDQyMC1hMTEyLTE0NTQ4MzBkYmJiOSJ9)
 
 ---
 
 ## 11. Considerações Finais
 
-
+- Os dados utilizados na análise são do período entre o dia 24/04/2020 até o dia 24/04/2025 (5 anos).
 
 ## 12. Anexo: LOG de Desenvolvimento
 
+Para acompanhar todo o histórico de desenvolvimento, ajustes e decisões tomadas ao longo do projeto, acesse o LOG de Desenvolvimento disponível no link abaixo:
+[🔗 Acessar LOG de Desenvolvimento](./log-desenvolvimento.md)
 
-
-Última Atualização: 25/04/2025
+Última Atualização: 29/04/2025
 
 Autor: Renan Costa
