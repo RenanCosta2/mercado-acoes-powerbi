@@ -157,7 +157,7 @@
 - Mesmo com menor volume, os preços continuaram subindo, o que pode indicar baixa oferta ou alta demanda institucional mais concentrada.
 - A média geral (linha "Total") está consistentemente puxada para cima pelos dois últimos anos (2024 e 2025), o que reforça a importância de avaliar as tendências recentes com atenção.
 
-## 🤖 Narrativa Inteligente (Resumo Automático)
+### 🤖 Narrativa Inteligente (Resumo Automático)
 
 Análise geral para todos os anos e empresas:
 - **Queda estrutural** desde 2020.
@@ -175,9 +175,12 @@ Ao interagir com o dashboard a análise feita pela narrativa inteligente atualiz
 
 ---
 
-## 11. Considerações Finais
+## 11. Observações Gerais
 
 - Os dados utilizados na análise são do período entre o dia 24/04/2020 até o dia 24/04/2025 (5 anos).
+- Os arquivos .csv de cada empresa foram extraídos individualmente do site da NASDAQ. Utilizou-se um script em Python para inserir uma coluna identificadora da empresa em cada dataset, possibilitando a unificação dos dados em um único arquivo .csv, que serviu como base para o projeto.
+
+---
 
 ## 12. Anexo: LOG de Desenvolvimento
 
