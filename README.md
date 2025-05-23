@@ -29,7 +29,7 @@
 
 ## 3. Objetivo do Projeto
 
-**Resumo:** O projeto desenvolvido no Power BI tem como objetivo oferecer uma visão estratégica do comportamento do mercado de ações de cinco empresas selecionadas (IBM, Microsoft, Oracle, Tesla e Walmart), permitindo análises detalhadas ao longo do tempo. Os dados analisados abrangem o período de 25 de abril de 2020 até 25 de abril de 2025, garantindo uma visão histórica consistente dos últimos cinco anos. O dashboard possibilita responder perguntas-chave como o total de volume negociado, médias mensais dos valores de abertura, máximos, mínimos e fechamento das ações, além da variação da média de fechamento mês a mês. Também conta com recursos de filtragem por empresa ou combinação de empresas, e utiliza Narrativa Inteligente para destacar padrões e tendências nos dados, com uma apresentação visual formatada e acessível.
+**Resumo:** O projeto desenvolvido no Power BI tem como objetivo oferecer uma visão estratégica do comportamento do mercado de ações de cinco empresas selecionadas (IBM, Microsoft, Oracle, Tesla e Walmart), permitindo análises detalhadas ao longo do tempo. Os dados analisados abrangem o período de 25 de abril de 2020 até 25 de abril de 2025, garantindo uma visão histórica consistente dos últimos cinco anos. 
 
 ---
 
